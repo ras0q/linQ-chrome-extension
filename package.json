@@ -15,7 +15,8 @@
     "prepare": "husky install",
     "lint": "npm-run-all _eslint _check-types",
     "lint:fix": "npm-run-all _eslint:fix _check-types _format",
-    "build": "npm-run-all _install lint:fix _clean _tsc _copy"
+    "build": "npm-run-all _install lint:fix _clean _tsc _copy",
+    "zip": "zip -r linQ-chrome-extension.zip ./dist/"
   },
   "repository": {
     "type": "git",
