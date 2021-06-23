@@ -1,7 +1,7 @@
 /* --------------------------------------------------*/
 /*        Switch according to the environment        */
 const baseUrl = new URL('https://linq.trap.games')
-// const baseUrl = new URL("http://localhost:3002");
+// const baseUrl = new URL('http://localhost:3002')
 /* --------------------------------------------------*/
 
 const baseApiUrl = new URL('/api/entry', baseUrl)
@@ -32,18 +32,20 @@ const notify = async (title: string, message: string) => {
   }
 }
 
-const saveToLinq = async (tab: chrome.tabs.Tab) => {
-  if (tab.url === undefined) return
-  const url = new URL(tab.url, baseApiUrl)
-  const title: string = tab.title ? tab.title : ''
+const getTags = () => {
   const tags: string[] = []
-
-  // タグを追加
   let tag = prompt('タグを追加(空文字で終了)')
-  while (tag !== null) {
+  while (tag) {
     tags.push(tag)
     tag = prompt('タグを追加(空文字で終了)')
   }
+  return tags
+}
+
+const saveToLinq = async (tab: chrome.tabs.Tab, tags: string[]) => {
+  if (tab.url === undefined) return
+  const url = new URL(tab.url, baseApiUrl)
+  const title: string = tab.title ? tab.title : ''
 
   if (!url.toString().startsWith('http')) return
 
@@ -84,7 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
   chrome.commands.onCommand.addListener(
     (command: string, tab: chrome.tabs.Tab) => {
       if (command === 'save') {
-        void saveToLinq(tab)
+        void saveToLinq(tab, [])
+      } else if (command === 'saveWithTags') {
+        const tags = getTags()
+        void saveToLinq(tab, tags)
       }
     }
   )
@@ -92,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // メニューをクリック時に実行
   chrome.contextMenus.onClicked.addListener((_, tab) => {
     if (tab !== undefined) {
-      void saveToLinq(tab)
+      void saveToLinq(tab, [])
     }
   })
 })

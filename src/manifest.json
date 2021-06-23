@@ -1,5 +1,5 @@
 {
-  "name": "better linQ(仮)(仮)",
+  "name": "better linQ(仮)",
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "This is a Chrome-Extension that makes linQ more useful.",
@@ -19,10 +19,17 @@
   "commands": {
     "save": {
       "suggested_key": {
-        "default": "Ctrl+M",
-        "mac": "MacCtrl+M"
+        "default": "Ctrl+Q",
+        "mac": "MacCtrl+Q"
       },
       "description": "save"
+    },
+    "saveWithTags": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Q",
+        "mac": "MacCtrl+Shift+Q"
+      },
+      "description": "save with tags"
     }
   },
   "permissions": [
