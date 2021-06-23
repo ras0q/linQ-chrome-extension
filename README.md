@@ -2,16 +2,22 @@
 
 This is a chrome-extension that makes [linQ](https://linq.trap.games/) more useful.
 
+## quick start
+
+1. Run ` npm run build `
+
+2. Set `dist`directory to chrome://extensions/
+
+## install
+
+```sh
+npm i
+```
+
 ## build
 
 ```sh
 npm run build
-```
-
-## build and run scripts
-
-```sh
-npm start
 ```
 
 ## lint (format: No)
