@@ -43,6 +43,10 @@ const getTags = () => {
 
 const saveToLinq = async (tab: chrome.tabs.Tab, tags: string[]) => {
   if (tab.url === undefined) return
+  if (tab.url.startsWith('chrome://')) {
+    await chrome.tabs.create({ url: baseUrl.toString() })
+    return
+  }
   const url = new URL(tab.url, baseApiUrl)
   const title: string = tab.title ? tab.title : ''
 
@@ -88,7 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
         void saveToLinq(tab, [])
       } else if (command === 'saveWithTags') {
         const tags = getTags()
-        void saveToLinq(tab, tags)
+        if (tags.length > 0) {
+          void saveToLinq(tab, tags)
+        }
       }
     }
   )
