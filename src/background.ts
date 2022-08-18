@@ -18,7 +18,9 @@ const notify = async (title: string, message: string, url: URL) => {
 
   try {
     const res = await Notification.requestPermission()
-    if (res !== 'granted') return
+    if (res !== 'granted') {
+      return
+    }
 
     chrome.notifications.onClicked.addListener(() => {
       const newUrl = new URL(`/entry?url=${url.toString()}`, baseUrl)
@@ -42,7 +44,9 @@ const getTags = () => {
 }
 
 const saveToLinq = async (tab: chrome.tabs.Tab, tags: string[]) => {
-  if (tab.url === undefined) return
+  if (tab.url === undefined) {
+    return
+  }
   if (tab.url.startsWith('chrome://')) {
     await chrome.tabs.create({ url: baseUrl.toString() })
     return
@@ -50,7 +54,9 @@ const saveToLinq = async (tab: chrome.tabs.Tab, tags: string[]) => {
   const url = new URL(tab.url, baseApiUrl)
   const title: string = tab.title ? tab.title : ''
 
-  if (!url.toString().startsWith('http')) return
+  if (!url.toString().startsWith('http')) {
+    return
+  }
 
   const query = { url, title, tags }
 
@@ -76,33 +82,31 @@ const saveToLinq = async (tab: chrome.tabs.Tab, tags: string[]) => {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  // インストール時に実行
-  chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-      id: 'saveToLinq',
-      title: 'Save to linQ',
-    })
+// インストール時に実行
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'saveToLinq',
+    title: 'Save to linQ',
   })
+})
 
-  // ショートカットキーをプッシュ時に実行
-  chrome.commands.onCommand.addListener(
-    (command: string, tab: chrome.tabs.Tab) => {
-      if (command === 'save') {
-        void saveToLinq(tab, [])
-      } else if (command === 'saveWithTags') {
-        const tags = getTags()
-        if (tags.length > 0) {
-          void saveToLinq(tab, tags)
-        }
+// ショートカットキーをプッシュ時に実行
+chrome.commands.onCommand.addListener(
+  (command: string, tab: chrome.tabs.Tab) => {
+    if (command === 'save') {
+      void saveToLinq(tab, [])
+    } else if (command === 'saveWithTags') {
+      const tags = getTags()
+      if (tags.length > 0) {
+        void saveToLinq(tab, tags)
       }
     }
-  )
+  }
+)
 
-  // メニューをクリック時に実行
-  chrome.contextMenus.onClicked.addListener((_, tab) => {
-    if (tab !== undefined) {
-      void saveToLinq(tab, [])
-    }
-  })
+// メニューをクリック時に実行
+chrome.contextMenus.onClicked.addListener((_, tab) => {
+  if (tab !== undefined) {
+    void saveToLinq(tab, [])
+  }
 })

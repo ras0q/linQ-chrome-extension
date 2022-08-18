@@ -1,7 +1,7 @@
 {
   "name": "better linQ(仮)",
-  "version": "1.1.0",
-  "manifest_version": 2,
+  "version": "1.2.0",
+  "manifest_version": 3,
   "description": "This is a Chrome-Extension that makes linQ more useful.",
   "icons": {
     "16": "logo.png",
@@ -12,8 +12,7 @@
     "homepage": "https://linq.trap.games"
   },
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "commands": {
     "save": {
@@ -31,12 +30,6 @@
       "description": "save with tags"
     }
   },
-  "permissions": [
-    "management",
-    "https://*/*",
-    "http://*/*",
-    "tabs",
-    "contextMenus",
-    "notifications"
-  ]
+  "permissions": ["management", "tabs", "contextMenus", "notifications"],
+  "host_permissions": ["http://*/*", "https://*/*"]
 }
