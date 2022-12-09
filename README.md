@@ -10,7 +10,7 @@
 ## Quick start
 
 1. <chrome://extensions/>から「パッケージ化されていない拡張機能を読み込む」を ON
-1. <https://github.com/Ras96/linQ-chrome-extension/releases/latest>から`linQ-chrome-extension.zip`をダウンロードして解凍
+1. <https://github.com/ras0q/linQ-chrome-extension/releases/latest>から`linQ-chrome-extension.zip`をダウンロードして解凍
 1. <chrome://extensions/>の「パッケージ化されていない拡張機能を読み込む」から`linQ-chrome-extension/dist`フォルダを選択
 1. キーバインドが使えるようになる
 

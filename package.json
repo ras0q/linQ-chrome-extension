@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ras96/linQ-chrome-extension.git"
+    "url": "https://github.com/ras0q/linQ-chrome-extension.git"
   },
-  "author": "Ras96",
+  "author": "ras0q",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ras96/linQ-chrome-extension/issues"
+    "url": "https://github.com/ras0q/linQ-chrome-extension/issues"
   },
-  "homepage": "https://github.com/Ras96/linQ-chrome-extension#readme",
+  "homepage": "https://github.com/ras0q/linQ-chrome-extension#readme",
   "devDependencies": {
     "@types/chrome": "^0.0.145",
     "@types/uuid": "^8.3.0",
